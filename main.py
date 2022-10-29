@@ -40,6 +40,9 @@ def blogs_scrap(event):
             find_section = soup.find("section")
             title = soup.find("h1")
 
+            if title is None:
+                continue
+
             data = {
                 "title":title.text,
                 "tags":["programming"],
@@ -50,6 +53,7 @@ def blogs_scrap(event):
                 continue
             else:
                 response = requests.post(api_url, json=data)
+                print(response.text)
                 if response.status_code =="400":
                     continue
                 
